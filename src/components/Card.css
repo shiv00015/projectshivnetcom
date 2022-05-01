@@ -48,7 +48,7 @@
   
   @media only screen and (max-width: 768px) {
     .card {
-      width: 20rem;
+      width: 21rem;
       height: 15rem;
       background-color: rgb(236, 232, 232);
       box-shadow: 5px 5px 8px 1px rgba(95, 95, 121, 0.2);

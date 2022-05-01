@@ -10,6 +10,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .main {
   display: flex;
 }
@@ -70,12 +71,34 @@ input {
   border-top: none;
   border-left: none;
   border-right: none;
-}
+} 
 
 input:focus {
   outline: none;
 }
 @media only screen and (max-width: 768px) {
+  .parenInputField .inputField {
+    margin : 3rem auto;
+  }
+  .container{
+    display:flex;
+    flex-direction: column;
+  }
+  .main {
+    display:flex;
+    flex-direction :column;
+  }
+  .main .roles {
+    height: 18rem;
+    width: 20rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+    font-size: 15px;
+  }
+  .filterItems .rolesHeading {
+    margin-bottom: 2rem;
+  }
   .App {
     display: flex;
     flex-direction: column;
