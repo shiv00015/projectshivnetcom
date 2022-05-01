@@ -9,6 +9,7 @@ export default function App() {
   const [levels, setLevels] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [course, setCourse] = useState("");
+  const [filterRole,  setFilterRoleList] = useState("");
 
   useEffect(() => {
     fetch(`https://docs.microsoft.com/api/learn/catalog/?locale=en-us`)
@@ -34,6 +35,16 @@ export default function App() {
 
     setFilterData(res);
   }, [course]);
+
+
+  useEffect(()=>{
+    const temp = roles;
+    const res = temp.filter((data)=>{
+      return data.name.includes(filterRole)
+    })
+    setRoles(res);
+
+  },[filterRole])
 
   const loadMoreData = () => {
     filterData.sort(() => {
@@ -70,7 +81,7 @@ export default function App() {
  
   return (
     <div>
-      
+      <div className="parenInputField">
       <div className="inputField">
         <input
           placeholder="Search for course"
@@ -80,12 +91,15 @@ export default function App() {
           }}
         />
       </div>
+      </div>
       <div className = "container">
       <div className="main">
         <div className="filterItems">
           <div className="rolesHeading">
             <h1>Roles</h1>
-            <input placeholder="Find role" />
+            <input placeholder="Find role" value = {filterRole} onChange={(e)=>{
+              setFilterRoleList(e.target.value)
+            }} />
           </div>
           <div className="roles">
             {roles.map((item, k) => {
