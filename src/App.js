@@ -4,12 +4,14 @@ import Card from "./components/Card";
 import CheckRole from "./components/CheckRole";
 import CheckLevel from "./components/CheckLevel";
 export default function App() {
+  
   const [data, setData] = useState([]);
   const [roles, setRoles] = useState([]);
   const [levels, setLevels] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [course, setCourse] = useState("");
   const [filterRole,  setFilterRoleList] = useState("");
+  const [roleData , setRoleData] = useState([]);
 
   useEffect(() => {
     fetch(`https://docs.microsoft.com/api/learn/catalog/?locale=en-us`)
@@ -21,6 +23,7 @@ export default function App() {
         setData(res.modules);
         setRoles(res.roles);
         setLevels(res.levels);
+        setRoleData(res.roles);
       })
       .catch((e) => {
         console.log(e);
@@ -42,7 +45,7 @@ export default function App() {
     const res = temp.filter((data)=>{
       return data.name.includes(filterRole)
     })
-    setRoles(res);
+    setRoleData([...res]);
 
   },[filterRole])
 
@@ -102,7 +105,7 @@ export default function App() {
             }} />
           </div>
           <div className="roles">
-            {roles.map((item, k) => {
+            {roleData.map((item, k) => {
               return (
                 <CheckRole
                   key={k}
