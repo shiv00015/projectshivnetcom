@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import Card from "./components/Card";
 import CheckRole from "./components/CheckRole";
 import CheckLevel from "./components/CheckLevel";
+import CheckProducts from "./components/CheckProducts";
+
 export default function App() {
-  
+
   const [data, setData] = useState([]);
   const [roles, setRoles] = useState([]);
   const [levels, setLevels] = useState([]);
@@ -12,6 +14,9 @@ export default function App() {
   const [course, setCourse] = useState("");
   const [filterRole,  setFilterRoleList] = useState("");
   const [roleData , setRoleData] = useState([]);
+  const [products , setProducts] = useState([]);
+  const [productData, setProductData] = useState([]);
+  const [filterProduct , setFilterProduct] = useState("");
 
   useEffect(() => {
     fetch(`https://docs.microsoft.com/api/learn/catalog/?locale=en-us`)
@@ -24,6 +29,9 @@ export default function App() {
         setRoles(res.roles);
         setLevels(res.levels);
         setRoleData(res.roles);
+        setProducts(res.products);
+        setProductData(res.products);
+        console.log(res.modules);
       })
       .catch((e) => {
         console.log(e);
@@ -35,10 +43,17 @@ export default function App() {
     const res = temp.filter((data) => {
       return data.title.includes(course);
     });
-
     setFilterData(res);
   }, [course]);
 
+  useEffect(()=>{
+    const temp = products;
+    const res = temp.filter((data)=>{
+      return data.name.includes(filterProduct)
+    })
+    setProductData([...res]);
+
+  },[filterProduct])
 
   useEffect(()=>{
     const temp = roles;
@@ -55,6 +70,28 @@ export default function App() {
     });
     setFilterData([...filterData]);
   };
+
+  function checkFilterProduct(id , c){
+    if (!c) {
+      setFilterData(data);
+      return;
+    }
+    const temp = data.filter((i) => {
+      return i.products.includes(id);
+    });
+    setFilterData(temp);
+  }
+
+  function checkFilterChildProduct(id , c){
+    if (!c) {
+      setFilterData(data);
+      return;
+    }
+    const temp = data.filter((i) => {
+      return i.products.includes(id);
+    });
+    setFilterData(temp);
+  }
 
   function checkFilterRole(id, c) {
     if (!c) {
@@ -81,7 +118,9 @@ export default function App() {
 
     setFilterData(temp);
   }
- 
+
+  
+
   return (
     <div>
       <div className="parenInputField">
@@ -98,6 +137,26 @@ export default function App() {
       <div className = "container">
       <div className="main">
         <div className="filterItems">
+        <div className="rolesHeading">
+            <h1>Poducts</h1>
+            <input placeholder="Find a produts" value={filterProduct} onChange={(e)=>{
+              setFilterProduct(e.target.value)
+            }}/>
+          </div>
+          <div className="roles">
+            {productData.map((item, k) => {
+              return (
+                <CheckProducts 
+                key = {k} 
+                name ={item.name} 
+                userId = {item.id}  
+                childpro = {item.children} 
+                checkFilterProduct={checkFilterProduct} 
+                checkFilterChildProduct={checkFilterChildProduct}
+                />
+              );
+            })}
+          </div>
           <div className="rolesHeading">
             <h1>Roles</h1>
             <input placeholder="Find role" value = {filterRole} onChange={(e)=>{
@@ -150,18 +209,7 @@ export default function App() {
                 );
               })
             )}
-            {/* {data.slice(1, 11).map((item, index) => {
-              return (
-                <Card
-                  key={index}
-                  title={item.title}
-                  time={item.duration_in_minutes}
-                  levels={item.levels}
-                  products={item.products}
-                  roles={item.roles}
-                />
-              );
-            })} */}
+            
           </div>
           <div className="btn">
             <button onClick={loadMoreData}>Load More</button>

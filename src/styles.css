@@ -33,7 +33,7 @@ li {
   display: flex;
   justify-content:left;
   align-items: center;
-  margin:0.5rem;
+  margin:0.1rem;
 }
 .check input {
   width: 15px;
@@ -89,7 +89,7 @@ input:focus {
     flex-direction :column;
   }
   .main .roles {
-    height: 18rem;
+    min-height: 18rem;
     width: 20rem;
     overflow-x: hidden;
     overflow-y: auto;
