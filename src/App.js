@@ -1,4 +1,4 @@
-import "./styles.css";
+import "./App.css";
 import React, { useState, useEffect } from "react";
 import Card from "./components/Card";
 import CheckRole from "./components/CheckRole";
@@ -31,7 +31,7 @@ export default function App() {
         setRoleData(res.roles);
         setProducts(res.products);
         setProductData(res.products);
-        console.log(res.modules);
+        console.log(res);
       })
       .catch((e) => {
         console.log(e);
@@ -119,8 +119,6 @@ export default function App() {
     setFilterData(temp);
   }
 
-  
-
   return (
     <div>
       <div className="parenInputField">
@@ -137,13 +135,13 @@ export default function App() {
       <div className = "container">
       <div className="main">
         <div className="filterItems">
-        <div className="rolesHeading">
+        <div className="Heading">
             <h1>Poducts</h1>
             <input placeholder="Find a produts" value={filterProduct} onChange={(e)=>{
               setFilterProduct(e.target.value)
             }}/>
           </div>
-          <div className="roles">
+          <div className="list">
             {productData.map((item, k) => {
               return (
                 <CheckProducts 
@@ -157,13 +155,13 @@ export default function App() {
               );
             })}
           </div>
-          <div className="rolesHeading">
+          <div className="Heading">
             <h1>Roles</h1>
             <input placeholder="Find role" value = {filterRole} onChange={(e)=>{
               setFilterRoleList(e.target.value)
             }} />
           </div>
-          <div className="roles">
+          <div className="list">
             {roleData.map((item, k) => {
               return (
                 <CheckRole
@@ -175,10 +173,10 @@ export default function App() {
               );
             })}
           </div>
-          <div className="rolesHeading">
+          <div className="Heading">
             <h1>Levels</h1>
           </div>
-          <div className="roles">
+          <div className="list">
             {levels.map((item, k) => {
               return (
                 <CheckLevel

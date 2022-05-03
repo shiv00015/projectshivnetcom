@@ -18,7 +18,7 @@ li {
   list-style: none;
 }
 
-.main .roles {
+.main .list {
   height: 18rem;
   width: 20rem;
   overflow-x: hidden;
@@ -26,7 +26,7 @@ li {
   text-align: justify;
   font-size: 15px;
 }
-.filterItems .rolesHeading {
+.filterItems .Heading {
   margin-bottom: 2rem;
 }
 .check {
@@ -88,7 +88,7 @@ input:focus {
     display:flex;
     flex-direction :column;
   }
-  .main .roles {
+  .main .list {
     min-height: 18rem;
     width: 20rem;
     overflow-x: hidden;
@@ -96,7 +96,7 @@ input:focus {
     text-align: justify;
     font-size: 15px;
   }
-  .filterItems .rolesHeading {
+  .filterItems .Heading {
     margin-bottom: 2rem;
   }
   .App {
