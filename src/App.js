@@ -17,8 +17,13 @@ export default function App() {
   const [products , setProducts] = useState([]);
   const [productData, setProductData] = useState([]);
   const [filterProduct , setFilterProduct] = useState("");
-
+  const [loading , setLoading] = useState(false);
+ 
   useEffect(() => {
+    if(!course){
+      setLoading(true);
+    }
+
     fetch(`https://docs.microsoft.com/api/learn/catalog/?locale=en-us`)
       .then((data) => {
         return data.json();
@@ -31,12 +36,14 @@ export default function App() {
         setRoleData(res.roles);
         setProducts(res.products);
         setProductData(res.products);
-        console.log(res);
+        setLoading(false);
       })
       .catch((e) => {
         console.log(e);
       });
   }, []);
+
+  
 
   useEffect(() => {
     const temp = [...data];
@@ -63,6 +70,8 @@ export default function App() {
     setRoleData([...res]);
 
   },[filterRole])
+
+  
 
   const loadMoreData = () => {
     filterData.sort(() => {
@@ -107,19 +116,23 @@ export default function App() {
 
 
   function checkFilterLevel(id , c){
+
     if(!c){
       setFilterData(data);
       return;
     }
-
     const temp = data.filter((i)=>{
       return i.levels.includes(id);
     })
-
     setFilterData(temp);
   }
 
-  
+  if(loading)
+  {
+    return (<div style={{display:"flex" , justifyContent: "center" , alignItems : "center"}}>
+               <h2>loading... please wait!</h2>
+            </div>);
+  }
 
   return (
     <div>
