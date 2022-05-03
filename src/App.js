@@ -119,6 +119,8 @@ export default function App() {
     setFilterData(temp);
   }
 
+  
+
   return (
     <div>
       <div className="parenInputField">
@@ -191,10 +193,12 @@ export default function App() {
         </div>
         <div>
           <div className="App">
-            {!filterData ? (
-              <h1>Data Not Found </h1>
+            {!filterData.length ? (
+              <div>
+              <h3>Data Not Found </h3>
+              </div>
             ) : (
-              filterData.slice(1, 11).map((item, index) => {
+              filterData.slice(0, 10).map((item, index) => {
                 return (
                   <Card
                     key={index}
